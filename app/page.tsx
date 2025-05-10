@@ -385,15 +385,16 @@ export default function Home() {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="relative h-96 rounded-3xl overflow-hidden shadow-2xl"
+                className="relative h-96 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center bg-white p-6"
               >
                 <Image
-                  src="/images/dna-163466_1920.jpg"
-                  alt="Quality Control Laboratory"
-                  fill
-                  className="object-cover"
+                  src="/images/key-supplements.jpg"
+                  alt="Key Supplements"
+                  width={400}
+                  height={400}
+                  className="object-contain max-w-full max-h-full"
+                  style={{ objectFit: 'contain' }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-transparent" />
               </motion.div>
             </div>
           </motion.div>
