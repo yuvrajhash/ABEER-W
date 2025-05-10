@@ -1,0 +1,267 @@
+/* Medical and Herbal Theme Colors */
+
+:root {
+  --color-sage: #4a7c59;
+  --color-sage-dark: #3d6349;
+  --color-sage-light: #5d9e7b;
+  --color-sage-very-light: #8fb9a8;
+  --color-sage-pale: #e0ebe5;
+  
+  --color-moss: #8b9e70;
+  --color-moss-dark: #6c7c55;
+  --color-moss-light: #a6b68e;
+  
+  --color-earthy: #b8a88f;
+  --color-earthy-dark: #9a8c76;
+  --color-earthy-light: #d6c9b8;
+  
+  --color-medical-blue: #6a8eae;
+  --color-medical-blue-dark: #567591;
+  --color-medical-blue-light: #8ba7c1;
+  
+  --color-lavender: #c9b1bd;
+  --color-lavender-dark: #b095a3;
+  --color-lavender-light: #e0cdd5;
+}
+
+/* Primary colors - Sage Green */
+.text-primary,
+.hover\:text-primary:hover,
+.text-blue-400,
+.hover\:text-blue-400:hover,
+.text-blue-500,
+.hover\:text-blue-500:hover {
+  color: var(--color-sage) !important;
+}
+
+.bg-primary,
+.hover\:bg-primary:hover,
+.bg-blue-500,
+.hover\:bg-blue-500:hover,
+.bg-blue-600,
+.hover\:bg-blue-600:hover {
+  background-color: var(--color-sage) !important;
+}
+
+.border-primary,
+.hover\:border-primary:hover,
+.border-blue-500,
+.hover\:border-blue-500:hover {
+  border-color: var(--color-sage) !important;
+}
+
+/* Secondary colors - Moss Green */
+.text-secondary,
+.hover\:text-secondary:hover,
+.text-indigo-400,
+.hover\:text-indigo-400:hover,
+.text-indigo-500,
+.hover\:text-indigo-500:hover {
+  color: var(--color-moss) !important;
+}
+
+.bg-secondary,
+.hover\:bg-secondary:hover,
+.bg-indigo-500,
+.hover\:bg-indigo-500:hover,
+.bg-indigo-600,
+.hover\:bg-indigo-600:hover {
+  background-color: var(--color-moss) !important;
+}
+
+.border-secondary,
+.hover\:border-secondary:hover,
+.border-indigo-500,
+.hover\:border-indigo-500:hover {
+  border-color: var(--color-moss) !important;
+}
+
+/* Accent colors - Earthy Beige */
+.text-accent,
+.hover\:text-accent:hover,
+.text-purple-400,
+.hover\:text-purple-400:hover,
+.text-purple-500,
+.hover\:text-purple-500:hover {
+  color: var(--color-earthy) !important;
+}
+
+.bg-accent,
+.hover\:bg-accent:hover,
+.bg-purple-400,
+.hover\:bg-purple-400:hover,
+.bg-purple-500,
+.hover\:bg-purple-500:hover {
+  background-color: var(--color-earthy) !important;
+}
+
+.border-accent,
+.hover\:border-accent:hover,
+.border-purple-400,
+.hover\:border-purple-400:hover,
+.border-purple-500,
+.hover\:border-purple-500:hover {
+  border-color: var(--color-earthy) !important;
+}
+
+/* Medical blue */
+.text-medical,
+.hover\:text-medical:hover,
+.text-blue-300,
+.hover\:text-blue-300:hover {
+  color: var(--color-medical-blue) !important;
+}
+
+.bg-medical,
+.hover\:bg-medical:hover,
+.bg-blue-300,
+.hover\:bg-blue-300:hover {
+  background-color: var(--color-medical-blue) !important;
+}
+
+.border-medical,
+.hover\:border-medical:hover,
+.border-blue-300,
+.hover\:border-blue-300:hover {
+  border-color: var(--color-medical-blue) !important;
+}
+
+/* Herbal accent - Lavender */
+.text-herbal,
+.hover\:text-herbal:hover,
+.text-pink-300,
+.hover\:text-pink-300:hover,
+.text-pink-500,
+.hover\:text-pink-500:hover {
+  color: var(--color-lavender) !important;
+}
+
+.bg-herbal,
+.hover\:bg-herbal:hover,
+.bg-pink-300,
+.hover\:bg-pink-300:hover,
+.bg-pink-500,
+.hover\:bg-pink-500:hover {
+  background-color: var(--color-lavender) !important;
+}
+
+.border-herbal,
+.hover\:border-herbal:hover,
+.border-pink-300,
+.hover\:border-pink-300:hover,
+.border-pink-500,
+.hover\:border-pink-500:hover {
+  border-color: var(--color-lavender) !important;
+}
+
+/* Darker variants */
+.text-blue-700,
+.hover\:text-blue-700:hover {
+  color: var(--color-sage-dark) !important;
+}
+
+.bg-blue-700,
+.hover\:bg-blue-700:hover,
+.bg-blue-800,
+.hover\:bg-blue-800:hover {
+  background-color: var(--color-sage-dark) !important;
+}
+
+.border-blue-700,
+.hover\:border-blue-700:hover {
+  border-color: var(--color-sage-dark) !important;
+}
+
+/* Lighter variants */
+.text-blue-100,
+.hover\:text-blue-100:hover {
+  color: var(--color-sage-pale) !important;
+}
+
+.bg-blue-100,
+.hover\:bg-blue-100:hover {
+  background-color: var(--color-sage-pale) !important;
+}
+
+.border-blue-100,
+.hover\:border-blue-100:hover {
+  border-color: var(--color-sage-pale) !important;
+}
+
+/* Opacity variants */
+.bg-blue-500\/20,
+.bg-blue-500\/10 {
+  background-color: rgba(74, 124, 89, 0.2) !important;
+}
+
+.bg-blue-900\/50 {
+  background-color: rgba(61, 99, 73, 0.5) !important;
+}
+
+.bg-indigo-500\/20 {
+  background-color: rgba(139, 158, 112, 0.2) !important;
+}
+
+.group-hover\:bg-blue-800\/70:hover {
+  background-color: rgba(61, 99, 73, 0.7) !important;
+}
+
+/* Focus ring */
+.focus\:ring-blue-500:focus {
+  --tw-ring-color: var(--color-sage) !important;
+}
+
+/* Gradients */
+.bg-gradient-to-r.from-blue-500.to-purple-500,
+.bg-gradient-to-r.from-blue-500.via-purple-500.to-pink-500 {
+  background-image: linear-gradient(to right, var(--color-sage), var(--color-earthy)) !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-indigo-600 {
+  background-image: linear-gradient(to right, var(--color-sage), var(--color-moss)) !important;
+}
+
+.bg-gradient-to-r.from-primary.via-secondary.to-accent {
+  background-image: linear-gradient(to right, var(--color-sage), var(--color-moss), var(--color-earthy)) !important;
+}
+
+.bg-gradient-to-br.from-blue-50.to-indigo-50 {
+  background-image: linear-gradient(to bottom right, var(--color-sage-pale), var(--color-moss-light)) !important;
+}
+
+.bg-gradient-to-br.from-blue-50.via-white.to-indigo-50 {
+  background-image: linear-gradient(to bottom right, var(--color-sage-pale), #ffffff, var(--color-moss-light)) !important;
+}
+
+/* Custom classes for the gradient text */
+.gradient-text {
+  background: linear-gradient(to right, var(--color-sage), var(--color-moss));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Additional overrides for specific elements */
+.bg-blue-400 {
+  background-color: var(--color-medical-blue) !important;
+}
+
+.bg-indigo-400 {
+  background-color: var(--color-moss-light) !important;
+}
+
+/* Override for the underline in the hero section */
+.absolute.-bottom-2.left-0.h-1.bg-blue-400 {
+  background-color: var(--color-medical-blue) !important;
+}
+
+/* Gradient background for buttons */
+.gradient-bg {
+  background-image: linear-gradient(to right, var(--color-sage), var(--color-moss)) !important;
+  color: white;
+}
+
+.gradient-bg:hover {
+  background-image: linear-gradient(to right, var(--color-sage-dark), var(--color-moss-dark)) !important;
+}

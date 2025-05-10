@@ -1,0 +1,8 @@
+/* This file is intentionally empty - 
+ * it simply ensures the Tailwind directives are processed correctly
+ */ 
+
+/* Tailwind CSS v3 directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 

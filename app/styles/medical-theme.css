@@ -1,0 +1,585 @@
+/* Medical Platform Theme - Based on Theme Transformation Guide */
+
+:root {
+  /* Primary Colors */
+  --color-dark-green: #0A5F55;
+  --color-orange: #FF7F41;
+  --color-white: #FFFFFF;
+
+  /* Secondary/Supporting Colors */
+  --color-light-green: #11897A;
+  --color-darker-green: #054640;
+  --color-light-orange: #FFA67E;
+  --color-off-white: #F5F7F6;
+  --color-dark-gray: #333333;
+
+  /* Shadows and Effects */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  
+  /* Border Radius */
+  --border-radius-sm: 8px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 12px;
+
+  /* Override default colors for the whole site */
+  --background: var(--color-off-white);
+  --foreground: var(--color-dark-gray);
+  --primary: var(--color-dark-green);
+  --secondary: var(--color-light-green);
+  --accent: var(--color-orange);
+  --dark-green: var(--color-dark-green);
+  --light-green: var(--color-light-green);
+  --darker-green: var(--color-darker-green);
+  --orange: var(--color-orange);
+  --light-orange: var(--color-light-orange);
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: var(--color-dark-green);
+}
+
+body {
+  font-family: 'Inter', 'Open Sans', sans-serif;
+  color: var(--color-dark-gray);
+  background-color: var(--color-off-white);
+}
+
+button, .btn, a.btn {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Font Sizing */
+h1, .h1 {
+  font-size: 2.25rem; /* 36px */
+  line-height: 1.2;
+}
+
+h2, .h2 {
+  font-size: 1.875rem; /* 30px */
+  line-height: 1.3;
+}
+
+h3, .h3 {
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.4;
+}
+
+body, p {
+  font-size: 1rem; /* 16px */
+  line-height: 1.6;
+}
+
+.text-sm {
+  font-size: 0.875rem; /* 14px */
+}
+
+/* Primary colors - Dark Green */
+.text-primary,
+.hover\:text-primary:hover,
+.text-blue-400,
+.hover\:text-blue-400:hover,
+.text-blue-500,
+.hover\:text-blue-500:hover,
+.text-blue-600,
+.hover\:text-blue-600:hover {
+  color: var(--color-dark-green) !important;
+}
+
+.bg-primary,
+.hover\:bg-primary:hover,
+.bg-blue-500,
+.hover\:bg-blue-500:hover,
+.bg-blue-600,
+.hover\:bg-blue-600:hover {
+  background-color: var(--color-dark-green) !important;
+}
+
+.border-primary,
+.hover\:border-primary:hover,
+.border-blue-500,
+.hover\:border-blue-500:hover,
+.border-blue-600,
+.hover\:border-blue-600:hover {
+  border-color: var(--color-dark-green) !important;
+}
+
+/* Secondary colors - Light Green */
+.text-secondary,
+.hover\:text-secondary:hover,
+.text-indigo-400,
+.hover\:text-indigo-400:hover,
+.text-indigo-500,
+.hover\:text-indigo-500:hover,
+.text-indigo-600,
+.hover\:text-indigo-600:hover {
+  color: var(--color-light-green) !important;
+}
+
+.bg-secondary,
+.hover\:bg-secondary:hover,
+.bg-indigo-500,
+.hover\:bg-indigo-500:hover,
+.bg-indigo-600,
+.hover\:bg-indigo-600:hover {
+  background-color: var(--color-light-green) !important;
+}
+
+.border-secondary,
+.hover\:border-secondary:hover,
+.border-indigo-500,
+.hover\:border-indigo-500:hover,
+.border-indigo-600,
+.hover\:border-indigo-600:hover {
+  border-color: var(--color-light-green) !important;
+}
+
+/* Accent colors - Orange */
+.text-accent,
+.hover\:text-accent:hover,
+.text-purple-400,
+.hover\:text-purple-400:hover,
+.text-purple-500,
+.hover\:text-purple-500:hover,
+.text-purple-600,
+.hover\:text-purple-600:hover,
+.text-pink-500,
+.hover\:text-pink-500:hover,
+.text-pink-600,
+.hover\:text-pink-600:hover {
+  color: var(--color-orange) !important;
+}
+
+.bg-accent,
+.hover\:bg-accent:hover,
+.bg-purple-400,
+.hover\:bg-purple-400:hover,
+.bg-purple-500,
+.hover\:bg-purple-500:hover,
+.bg-purple-600,
+.hover\:bg-purple-600:hover,
+.bg-pink-500,
+.hover\:bg-pink-500:hover,
+.bg-pink-600,
+.hover\:bg-pink-600:hover {
+  background-color: var(--color-orange) !important;
+}
+
+.border-accent,
+.hover\:border-accent:hover,
+.border-purple-400,
+.hover\:border-purple-400:hover,
+.border-purple-500,
+.hover\:border-purple-500:hover,
+.border-purple-600,
+.hover\:border-purple-600:hover,
+.border-pink-500,
+.hover\:border-pink-500:hover,
+.border-pink-600,
+.hover\:border-pink-600:hover {
+  border-color: var(--color-orange) !important;
+}
+
+/* Direct color classes for theme elements */
+.text-orange {
+  color: var(--color-orange) !important;
+}
+
+.bg-orange {
+  background-color: var(--color-orange) !important;
+}
+
+.border-orange {
+  border-color: var(--color-orange) !important;
+}
+
+.bg-dark-green, 
+.bg-darker-green {
+  background-color: var(--color-dark-green) !important;
+}
+
+.text-dark-green,
+.text-darker-green {
+  color: var(--color-dark-green) !important;
+}
+
+/* Light Orange (for hovers) */
+.text-orange-light,
+.hover\:text-orange-light:hover,
+.text-pink-300,
+.hover\:text-pink-300:hover {
+  color: var(--color-light-orange) !important;
+}
+
+.bg-orange-light,
+.hover\:bg-orange-light:hover,
+.bg-pink-300,
+.hover\:bg-pink-300:hover {
+  background-color: var(--color-light-orange) !important;
+}
+
+.border-orange-light,
+.hover\:border-orange-light:hover,
+.border-pink-300,
+.hover\:border-pink-300:hover {
+  border-color: var(--color-light-orange) !important;
+}
+
+/* Darker Green (for footer) */
+.text-blue-700,
+.hover\:text-blue-700:hover,
+.text-blue-800,
+.hover\:text-blue-800:hover {
+  color: var(--color-darker-green) !important;
+}
+
+.bg-blue-700,
+.hover\:bg-blue-700:hover,
+.bg-blue-800,
+.hover\:bg-blue-800:hover {
+  background-color: var(--color-darker-green) !important;
+}
+
+.border-blue-700,
+.hover\:border-blue-700:hover {
+  border-color: var(--color-darker-green) !important;
+}
+
+/* Lighter variants */
+.text-blue-100,
+.hover\:text-blue-100:hover {
+  color: var(--color-off-white) !important;
+}
+
+.bg-blue-100,
+.hover\:bg-blue-100:hover {
+  background-color: var(--color-off-white) !important;
+}
+
+.border-blue-100,
+.hover\:border-blue-100:hover {
+  border-color: var(--color-off-white) !important;
+}
+
+/* Direct off-white classes */
+.bg-off-white {
+  background-color: var(--color-off-white) !important;
+}
+
+.text-off-white {
+  color: var(--color-off-white) !important;
+}
+
+.border-off-white {
+  border-color: var(--color-off-white) !important;
+}
+
+/* Opacity variants */
+.bg-blue-500\/20,
+.bg-blue-500\/10 {
+  background-color: rgba(10, 95, 85, 0.2) !important;
+}
+
+.bg-blue-900\/50 {
+  background-color: rgba(5, 70, 64, 0.5) !important;
+}
+
+.bg-indigo-500\/20 {
+  background-color: rgba(17, 137, 122, 0.2) !important;
+}
+
+.group-hover\:bg-blue-800\/70:hover {
+  background-color: rgba(5, 70, 64, 0.7) !important;
+}
+
+/* Focus ring */
+.focus\:ring-blue-500:focus {
+  --tw-ring-color: var(--color-dark-green) !important;
+}
+
+/* Gradients */
+.bg-gradient-to-r.from-blue-500.to-purple-500,
+.bg-gradient-to-r.from-blue-500.via-purple-500.to-pink-500,
+.bg-gradient-to-r.from-blue-500.to-pink-500,
+.bg-gradient-to-r.from-blue-600.to-pink-600,
+.bg-gradient-to-r.from-indigo-500.to-purple-500,
+.bg-gradient-to-r.from-indigo-500.via-purple-500.to-pink-500 {
+  background-image: linear-gradient(to right, var(--color-dark-green), var(--color-orange)) !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-indigo-600,
+.bg-gradient-to-r.from-blue-700.to-indigo-700 {
+  background-image: linear-gradient(to right, var(--color-dark-green), var(--color-light-green)) !important;
+}
+
+.bg-gradient-to-r.from-primary.via-secondary.to-accent {
+  background-image: linear-gradient(to right, var(--color-dark-green), var(--color-light-green), var(--color-orange)) !important;
+}
+
+.bg-gradient-to-br.from-blue-50.to-indigo-50 {
+  background-image: linear-gradient(to bottom right, var(--color-off-white), var(--color-light-green)) !important;
+}
+
+.bg-gradient-to-br.from-blue-50.via-white.to-indigo-50 {
+  background-image: linear-gradient(to bottom right, var(--color-off-white), #ffffff, var(--color-light-green)) !important;
+}
+
+/* Custom gradient text */
+.gradient-text {
+  background: linear-gradient(to right, var(--color-dark-green), var(--color-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* UI Components */
+
+/* Buttons */
+.btn, button.btn, a.btn {
+  border-radius: var(--border-radius-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn:hover, button.btn:hover, a.btn:hover {
+  transform: scale(1.03);
+}
+
+.btn-primary, 
+.bg-blue-600, 
+.hover\:bg-blue-600:hover {
+  background-color: var(--color-orange) !important;
+  color: var(--color-white) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-light-orange) !important;
+}
+
+.btn-secondary {
+  background-color: var(--color-dark-green) !important;
+  color: var(--color-white) !important;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-light-green) !important;
+}
+
+.btn-outline {
+  background-color: transparent !important;
+  border: 2px solid var(--color-dark-green) !important;
+  color: var(--color-dark-green) !important;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-off-white) !important;
+}
+
+/* Cards & Containers */
+.card {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  color: var(--color-dark-green);
+  font-weight: 700;
+}
+
+.card-accent {
+  border-top: 3px solid var(--color-orange);
+}
+
+/* Form Elements */
+input, select, textarea {
+  border: 1px solid rgba(10, 95, 85, 0.3);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-orange);
+  box-shadow: 0 0 0 2px rgba(255, 127, 65, 0.2);
+  outline: none;
+}
+
+/* Navigation */
+nav, .navbar {
+  background-color: var(--color-dark-green);
+}
+
+nav a, .navbar a {
+  color: var(--color-white);
+  position: relative;
+}
+
+nav a:hover, .navbar a:hover {
+  color: var(--color-light-orange);
+}
+
+/* Custom nav link with underline animation */
+.nav-link {
+  color: var(--color-white);
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-orange);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-light-orange);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Animations */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Loading indicators */
+.loader {
+  border: 3px solid var(--color-off-white);
+  border-top: 3px solid var(--color-orange);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Progress bars */
+.progress-bar {
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  background-color: var(--color-off-white);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--color-dark-green), var(--color-orange));
+  transition: width 0.5s ease;
+}
+
+/* Scroll effects */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Status indicators */
+.status-positive {
+  color: var(--color-dark-green);
+}
+
+.status-warning {
+  color: var(--color-orange);
+}
+
+.status-critical {
+  color: #d32f2f;
+}
+
+/* Overrides for specific elements */
+.absolute.-bottom-2.left-0.h-1.bg-blue-400 {
+  background-color: var(--color-orange) !important;
+}
+
+/* Dashboard Elements */
+.dashboard-card {
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+}
+
+.dashboard-card-header {
+  border-bottom: 1px solid rgba(10, 95, 85, 0.1);
+  color: var(--color-dark-green);
+  font-weight: 700;
+}
+
+.dashboard-metric {
+  color: var(--color-orange);
+  font-weight: 700;
+}
+
+/* Final overrides for specific site elements */
+.feature-card, .product-card, .testimonial-card {
+  border-color: var(--color-dark-green) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.feature-card:hover, .product-card:hover, .testimonial-card:hover {
+  border-color: var(--color-orange) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.feature-icon, .stat-icon {
+  color: var(--color-orange) !important;
+}
+
+.stat-value {
+  color: var(--color-dark-green) !important;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, var(--color-dark-green), var(--color-light-green)) !important;
+}
+
+.cta-section {
+  background-color: var(--color-dark-green) !important;
+}
+
+.pill-badge {
+  background-color: var(--color-light-green) !important;
+  color: white !important;
+} 
