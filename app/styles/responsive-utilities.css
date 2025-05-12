@@ -1,0 +1,380 @@
+/* Responsive Utilities for AIPL Group 
+ * This file provides responsive design utilities and device-specific optimizations
+ * to ensure consistent display across all devices and browsers
+ */
+
+/* ===== CSS Variables for Responsive Design ===== */
+:root {
+  /* Spacing scale (rem based for better accessibility) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-8: 3rem;     /* 48px */
+  --space-10: 4rem;    /* 64px */
+  --space-12: 5rem;    /* 80px */
+  
+  /* Breakpoints (matching Tailwind defaults for consistency) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  
+  /* Container widths */
+  --container-sm: 100%;
+  --container-md: 90%;
+  --container-lg: 85%;
+  --container-xl: 80%;
+  --container-max: 1440px;
+  
+  /* Typography scale (fluid, scales with viewport) */
+  --font-size-xs: clamp(0.75rem, 0.7vw + 0.5rem, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 0.8vw + 0.6rem, 1rem);
+  --font-size-base: clamp(1rem, 1vw + 0.6rem, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 1.2vw + 0.7rem, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.5vw + 0.8rem, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 2vw + 1rem, 1.875rem);
+  --font-size-3xl: clamp(1.875rem, 2.5vw + 1.1rem, 2.25rem);
+  --font-size-4xl: clamp(2.25rem, 3vw + 1.2rem, 3rem);
+  
+  /* Page padding for small devices */
+  --page-padding-mobile: 1rem;
+  --page-padding-tablet: 2rem;
+  --page-padding-desktop: 3rem;
+  
+  /* Safe areas for notched devices */
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+}
+
+/* ===== Responsive Layout Classes ===== */
+
+/* Flexible containers */
+.container-fluid {
+  width: 100%;
+  padding-right: var(--page-padding-mobile);
+  padding-left: var(--page-padding-mobile);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 768px) {
+  .container-fluid {
+    padding-right: var(--page-padding-tablet);
+    padding-left: var(--page-padding-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-fluid {
+    padding-right: var(--page-padding-desktop);
+    padding-left: var(--page-padding-desktop);
+  }
+}
+
+/* Responsive grid system */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* Auto-fit grid for cards and items */
+.grid-autofit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+/* Flexbox layout utilities */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-col-mobile {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .flex-col-mobile {
+    flex-direction: row;
+  }
+}
+
+/* ===== Responsive Spacing ===== */
+.responsive-margin {
+  margin: var(--space-2);
+}
+
+@media (min-width: 640px) {
+  .responsive-margin {
+    margin: var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-margin {
+    margin: var(--space-6);
+  }
+}
+
+.responsive-padding {
+  padding: var(--space-2);
+}
+
+@media (min-width: 640px) {
+  .responsive-padding {
+    padding: var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-padding {
+    padding: var(--space-6);
+  }
+}
+
+/* ===== Responsive Typography ===== */
+.text-responsive {
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+
+.heading-responsive {
+  font-size: var(--font-size-2xl);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .heading-responsive {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading-responsive {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+/* ===== Device-Specific Optimizations ===== */
+
+/* iOS & Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for iOS 100vh issue */
+  .full-height {
+    height: 100vh; /* Fallback */
+    height: -webkit-fill-available;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+  
+  /* Fix for iOS input zooming */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents auto-zoom */
+  }
+  
+  /* Fix for iOS position:fixed issues */
+  .fixed-ios {
+    position: fixed;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+/* High-DPI screens optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .optimize-retina {
+    image-rendering: -webkit-optimize-contrast;
+  }
+  
+  /* Sharper text rendering for high-DPI screens */
+  .sharper-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Touch-optimized interfaces */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets for mobile */
+  .touch-target {
+    min-height: 44px; /* Apple HIG recommendation */
+    min-width: 44px;
+    padding: 12px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .hover-only {
+    display: none !important;
+  }
+}
+
+/* ===== Responsive Visibility Helpers ===== */
+.hidden-xs {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .hidden-xs {
+    display: initial;
+  }
+  
+  .visible-xs-only {
+    display: none;
+  }
+}
+
+.hidden-md {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hidden-md {
+    display: initial;
+  }
+  
+  .visible-md-down {
+    display: none;
+  }
+}
+
+/* ===== Performance Optimizations ===== */
+/* Image optimization */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+/* Content-visibility for off-screen content */
+.optimize-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px; /* Estimated height */
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  
+  body {
+    font-size: 12pt;
+  }
+  
+  .container, .container-fluid {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* ===== Accessibility Enhancements ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Skip to content link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 9999;
+  padding: 1rem;
+  background: var(--primary);
+  color: white;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ===== Cross-Browser Compatibility ===== */
+/* Firefox specific fixes */
+@-moz-document url-prefix() {
+  /* Improve scrolling behavior */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--gray-light);
+  }
+}
+
+/* Edge and IE fixes */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /* Use standard flex instead of grid for IE */
+  .grid-responsive, .grid-autofit {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  /* Fix for object-fit */
+  .ie-object-fit {
+    font-family: 'object-fit: cover;';
+  }
+}
+
+/* ===== Dynamic Viewport Units (better than vh) ===== */
+/* This requires JS to set --vh custom property */
+.dynamic-height {
+  height: 100vh; /* Fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* ===== Dark Mode Support ===== */
+@media (prefers-color-scheme: dark) {
+  .optimize-dark-images {
+    filter: brightness(0.9);
+  }
+  
+  .invert-for-dark {
+    filter: invert(1);
+  }
+} 

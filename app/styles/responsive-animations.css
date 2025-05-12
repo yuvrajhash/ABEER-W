@@ -1,0 +1,286 @@
+/* Responsive Animations
+ * This file provides animation styles that adapt to device capabilities
+ * and respect user preferences for reduced motion
+ */
+
+/* Base animations */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(30px);
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+.slide-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.6s ease-out forwards;
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Infinite animations */
+.pulse {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.float {
+  animation: float 5s infinite ease-in-out;
+}
+
+.bounce {
+  animation: bounce 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-10px);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* Animation delays */
+.delay-1 {
+  animation-delay: 0.1s;
+}
+.delay-2 {
+  animation-delay: 0.2s;
+}
+.delay-3 {
+  animation-delay: 0.3s;
+}
+.delay-4 {
+  animation-delay: 0.4s;
+}
+.delay-5 {
+  animation-delay: 0.5s;
+}
+
+/* Staggered animations */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+.stagger-children > *:nth-child(7) { animation-delay: 0.7s; }
+.stagger-children > *:nth-child(8) { animation-delay: 0.8s; }
+
+/* Reduce animations based on user preference or slow connections */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .slide-in-left,
+  .slide-in-right,
+  .slide-in-up,
+  .scale-in,
+  .stagger-children > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .pulse,
+  .float,
+  .bounce {
+    animation: none !important;
+  }
+}
+
+/* Reduced animations for .reduce-motion class (applied via JS) */
+.reduce-motion .fade-in,
+.reduce-motion .slide-in-left,
+.reduce-motion .slide-in-right,
+.reduce-motion .slide-in-up,
+.reduce-motion .scale-in,
+.reduce-motion .stagger-children > * {
+  animation: fadeInSimple 0.3s ease-out forwards !important;
+  transform: none !important;
+}
+
+@keyframes fadeInSimple {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.reduce-motion .pulse,
+.reduce-motion .float,
+.reduce-motion .bounce {
+  animation: none !important;
+}
+
+/* Low-power mode for battery-conscious devices */
+.low-data-mode .fade-in,
+.low-data-mode .slide-in-left,
+.low-data-mode .slide-in-right,
+.low-data-mode .slide-in-up,
+.low-data-mode .scale-in,
+.low-data-mode .stagger-children > * {
+  animation: fadeInSimple 0.3s ease-out forwards !important;
+  transform: none !important;
+}
+
+.low-data-mode .pulse,
+.low-data-mode .float,
+.low-data-mode .bounce {
+  animation: none !important;
+}
+
+/* Optimize animations for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  /* Simplify animations on touch devices for better performance */
+  .fade-in,
+  .slide-in-left,
+  .slide-in-right,
+  .slide-in-up,
+  .scale-in {
+    animation-duration: 0.4s;
+  }
+  
+  .pulse {
+    animation: pulse 3s infinite ease-in-out;
+  }
+
+  .float {
+    animation: float 6s infinite ease-in-out;
+  }
+}
+
+/* Responsive animation speeds based on viewport size */
+@media (max-width: 640px) {
+  .fade-in,
+  .slide-in-left,
+  .slide-in-right,
+  .slide-in-up,
+  .scale-in {
+    animation-duration: 0.4s;
+  }
+}
+
+/* Animation for elements becoming visible via Intersection Observer */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduce animation for reveal-on-scroll */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    transition: opacity 0.3s;
+    transform: none;
+  }
+}
+
+.reduce-motion .reveal-on-scroll {
+  transition: opacity 0.3s;
+  transform: none;
+} 
