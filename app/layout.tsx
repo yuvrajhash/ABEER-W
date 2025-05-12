@@ -67,10 +67,23 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AIPL Group | Premium Pharmaceutical Products",
   description: "Your trusted partner in healthcare, providing premium pharmaceutical products for humans and animals.",
-  keywords: ["pharmaceutical", "healthcare", "medicine", "veterinary", "AIPL", "Vetonovia", "health products"],
+  keywords: ["pharmaceutical", "healthcare", "medicine", "veterinary", "AIPL", "Vetonovia", "health products", "herbal extracts", "pharmaceutical manufacturer", "nutraceutical ingredients", "pharmaceutical supplier"],
   authors: [{ name: "AIPL Group" }],
   creator: "AIPL Group",
   publisher: "AIPL Group",
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+  alternates: {
+    canonical: 'https://AIPLgroup.com',
+  },
   formatDetection: {
     email: false,
     address: false,
@@ -83,12 +96,21 @@ export const metadata: Metadata = {
     siteName: "AIPL Group",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'AIPL Group Logo',
+      }
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AIPL Group | Premium Pharmaceutical Products",
     description: "Your trusted partner in healthcare, providing premium pharmaceutical products for humans and animals.",
     creator: "@AIPLgroup",
+    images: ['/images/twitter-image.jpg'],
   },
   icons: {
     icon: [
@@ -105,16 +127,7 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "default",
     title: "AIPL Group"
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    minimumScale: 1,
-    userScalable: true,
-    viewportFit: "cover",
-  },
-  themeColor: "#0A5F55"
+  }
 };
 
 export const viewport: Viewport = {
@@ -133,7 +146,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full scroll-smooth">
+    <html lang="en" className="h-full scroll-smooth" suppressHydrationWarning>
       <head>
         <meta name="msapplication-TileColor" content="#0A5F55" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -150,10 +163,12 @@ export default function RootLayout({
         {/* DNS Prefetch for performance */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
         
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${montserrat.variable} ${inter.variable} ${openSans.variable} ${roboto.variable} antialiased min-h-full`}

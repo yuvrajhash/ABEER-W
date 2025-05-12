@@ -35,6 +35,17 @@ const PerformanceOptimizer = () => {
             if (!img.hasAttribute('loading')) {
               img.setAttribute('loading', 'lazy');
             }
+            // Lower quality images on slow connections
+            if (img.hasAttribute('data-quality-src') && img.hasAttribute('src')) {
+              img.setAttribute('src', img.getAttribute('data-quality-src') || '');
+            }
+          });
+          
+          // Remove non-critical CSS on slow connections
+          const nonCriticalCSS = document.querySelectorAll('link[data-critical="false"]');
+          nonCriticalCSS.forEach(link => {
+            (link as HTMLElement).setAttribute('media', 'print');
+            setTimeout(() => (link as HTMLElement).setAttribute('media', 'all'), 2000);
           });
         }
       }
@@ -59,6 +70,15 @@ const PerformanceOptimizer = () => {
       } catch (e) {
         console.warn('Font preloading not supported');
       }
+      
+      // Add font-display: swap to ensure text remains visible during font loading
+      const style = document.createElement('style');
+      style.textContent = `
+        @font-face {
+          font-display: swap !important;
+        }
+      `;
+      document.head.appendChild(style);
     }
   }, []);
 
@@ -115,7 +135,7 @@ const PerformanceOptimizer = () => {
     // Set up Intersection Observer for images if the browser supports it
     if ('IntersectionObserver' in window) {
       const imageObserver = new IntersectionObserver(handleImageIntersection, {
-        rootMargin: '50px 0px',
+        rootMargin: '100px 0px', // Increased margin for earlier loading
         threshold: 0.01
       });
       
@@ -123,6 +143,12 @@ const PerformanceOptimizer = () => {
       const lazyImages = document.querySelectorAll('img[data-src]');
       lazyImages.forEach(img => {
         imageObserver.observe(img);
+      });
+      
+      // Also lazy load iframes
+      const lazyIframes = document.querySelectorAll('iframe[data-src]');
+      lazyIframes.forEach(iframe => {
+        imageObserver.observe(iframe);
       });
     } else {
       // Fallback for browsers that don't support Intersection Observer
@@ -135,6 +161,52 @@ const PerformanceOptimizer = () => {
       });
     }
   }, []);
+  
+  // Implement priority hints for critical resources
+  const implementPriorityHints = useCallback(() => {
+    // Add priority hints to critical above-the-fold images
+    const criticalImages = document.querySelectorAll('img[data-critical="true"]');
+    criticalImages.forEach(img => {
+      img.setAttribute('fetchpriority', 'high');
+      img.setAttribute('loading', 'eager');
+    });
+    
+    // Defer non-critical scripts
+    const nonCriticalScripts = document.querySelectorAll('script[data-critical="false"]');
+    nonCriticalScripts.forEach(script => {
+      script.setAttribute('defer', '');
+    });
+    
+    // Add preload for critical resources
+    const preloadUrls: string[] = [
+      // Add critical resources URLs here if needed
+    ];
+    
+    preloadUrls.forEach(url => {
+      const preloadLink = document.createElement('link');
+      preloadLink.rel = 'preload';
+      preloadLink.href = url;
+      preloadLink.as = url.endsWith('.css') ? 'style' : 
+                     url.endsWith('.js') ? 'script' : 
+                     url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ? 'image' : 
+                     'fetch';
+      document.head.appendChild(preloadLink);
+    });
+  }, []);
+  
+  // Cache resources for offline use with Service Worker API if available
+  const setupServiceWorker = useCallback(() => {
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+      window.addEventListener('load', () => {
+        // Register service worker with a delay to improve initial page load
+        setTimeout(() => {
+          navigator.serviceWorker.register('/sw.js').catch(err => {
+            console.warn('Service worker registration failed:', err);
+          });
+        }, 3000);
+      });
+    }
+  }, []);
 
   // Apply all optimizations on component mount
   useEffect(() => {
@@ -143,17 +215,26 @@ const PerformanceOptimizer = () => {
     optimizeFonts();
     const cleanupReduceMotion = handleReduceMotion();
     
+    // Add priority hints for critical resources
+    implementPriorityHints();
+    
     // Optimize resource loading after initial render
     const timeoutId = setTimeout(() => {
       optimizeResourceLoading();
     }, 0);
     
+    // Setup service worker with delay to not impact initial load
+    const swTimeoutId = setTimeout(() => {
+      setupServiceWorker();
+    }, 5000);
+    
     // Cleanup
     return () => {
       clearTimeout(timeoutId);
+      clearTimeout(swTimeoutId);
       cleanupReduceMotion();
     };
-  }, [handleSlowConnection, optimizeFonts, handleReduceMotion, optimizeResourceLoading]);
+  }, [handleSlowConnection, optimizeFonts, handleReduceMotion, optimizeResourceLoading, implementPriorityHints, setupServiceWorker]);
 
   // This component doesn't render anything
   return null;

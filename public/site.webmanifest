@@ -1,20 +1,43 @@
 {
   "name": "AIPL Group",
   "short_name": "AIPL",
+  "description": "Premium pharmaceutical products for humans and animals",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0A5F55",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
     },
     {
-      "src": "/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192"
     }
   ],
-  "theme_color": "#4361ee",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "start_url": "/"
+  "categories": ["health", "pharmaceuticals", "medicine", "healthcare"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "About Us",
+      "short_name": "About",
+      "description": "Learn about AIPL Group",
+      "url": "/about",
+      "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Products",
+      "short_name": "Products",
+      "description": "Browse our product range",
+      "url": "/products",
+      "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
+    }
+  ]
 }

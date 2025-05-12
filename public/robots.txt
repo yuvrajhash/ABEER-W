@@ -1,0 +1,20 @@
+# Allow all web crawlers access to all content
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://AIPLgroup.com/sitemap.xml
+
+# Exclude specific paths from crawling
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.xml$
+
+# Optimize crawl budget
+Crawl-delay: 1
+
+# Don't crawl development resources
+Disallow: /_next/static/
+Disallow: /node_modules/ 
