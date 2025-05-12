@@ -12,8 +12,6 @@ const nextConfig = {
     ],
     // Enable image optimization for better performance
     unoptimized: false,
-    // Set quality a bit lower for better performance while maintaining good quality
-    quality: 85,
   },
   // Enable strict mode for better development experience
   reactStrictMode: true,
@@ -27,8 +25,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Optimize page loading and navigation
-  swcMinify: true,
   // Add trailing slashes for consistent SEO 
   trailingSlash: true,
   // Disable x-powered-by header for security
