@@ -40,43 +40,43 @@ const Footer = () => {
               Quick Links
               <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-accent"></span>
             </h4>
-            <ul className="space-y-1">
-              <li className="w-full">
+            <ul className="space-y-2">
+              <li>
                 <Link 
                   href="/" 
-                  className="text-off-white hover:text-accent active:text-accent transition-colors duration-200 block py-3 px-2 w-full rounded-sm hover:bg-white/5 active:bg-white/10"
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
                 >
                   Home
                 </Link>
               </li>
-              <li className="w-full">
+              <li>
                 <Link 
                   href="/about" 
-                  className="text-off-white hover:text-accent active:text-accent transition-colors duration-200 block py-3 px-2 w-full rounded-sm hover:bg-white/5 active:bg-white/10"
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
                 >
                   About Us
                 </Link>
               </li>
-              <li className="w-full">
+              <li>
                 <Link 
                   href="/products/herbal-extracts-manufacturer" 
-                  className="text-off-white hover:text-accent active:text-accent transition-colors duration-200 block py-3 px-2 w-full rounded-sm hover:bg-white/5 active:bg-white/10"
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
                 >
                   Herbal Extracts
                 </Link>
               </li>
-              <li className="w-full">
+              <li>
                 <Link 
                   href="/products/nutraceutical-ingredients-supplier" 
-                  className="text-off-white hover:text-accent active:text-accent transition-colors duration-200 block py-3 px-2 w-full rounded-sm hover:bg-white/5 active:bg-white/10"
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
                 >
                   Nutraceutical Ingredients
                 </Link>
               </li>
-              <li className="w-full">
+              <li>
                 <Link 
                   href="/contact" 
-                  className="text-off-white hover:text-accent active:text-accent transition-colors duration-200 block py-3 px-2 w-full rounded-sm hover:bg-white/5 active:bg-white/10"
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
                 >
                   Contact Us
                 </Link>
@@ -90,19 +90,19 @@ const Footer = () => {
               Our Products
               <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-accent"></span>
             </h4>
-            <ul className="space-y-1">
-              <li className="w-full">
+            <ul className="space-y-2">
+              <li>
                 <Link 
                   href="/products/herbal-extracts-manufacturer" 
-                  className="text-off-white hover:text-accent active:text-accent transition-colors duration-200 block py-3 px-2 w-full rounded-sm hover:bg-white/5 active:bg-white/10"
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
                 >
                   Herbal Extracts
                 </Link>
               </li>
-              <li className="w-full">
+              <li>
                 <Link 
                   href="/products/nutraceutical-ingredients-supplier" 
-                  className="text-off-white hover:text-accent active:text-accent transition-colors duration-200 block py-3 px-2 w-full rounded-sm hover:bg-white/5 active:bg-white/10"
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
                 >
                   Nutraceutical Ingredients
                 </Link>
@@ -127,13 +127,13 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <Phone className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
                 <div className="text-off-white space-y-1">
-                  <a href="tel:+918791140933" className="block hover:text-accent active:text-accent transition-colors duration-200 py-2 px-1 rounded-sm hover:bg-white/5 active:bg-white/10">
+                  <a href="tel:+918791140933" className="block hover:text-accent transition-colors duration-200 py-1">
                     +91 87911 40933
                   </a>
-                  <a href="tel:+919818422865" className="block hover:text-accent active:text-accent transition-colors duration-200 py-2 px-1 rounded-sm hover:bg-white/5 active:bg-white/10">
+                  <a href="tel:+919818422865" className="block hover:text-accent transition-colors duration-200 py-1">
                     +91 98184 22865
                   </a>
-                  <a href="tel:+918979291134" className="block hover:text-accent active:text-accent transition-colors duration-200 py-2 px-1 rounded-sm hover:bg-white/5 active:bg-white/10">
+                  <a href="tel:+918979291134" className="block hover:text-accent transition-colors duration-200 py-1">
                     +91 89792 91134
                   </a>
                 </div>
@@ -142,10 +142,10 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <Mail className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
                 <div className="text-off-white">
-                  <a href="mailto:pratik@aipl.org.in" className="block hover:text-accent active:text-accent transition-colors duration-200 py-2 px-1 rounded-sm hover:bg-white/5 active:bg-white/10">
+                  <a href="mailto:pratik@aipl.org.in" className="block hover:text-accent transition-colors duration-200 py-1">
                     pratik@aipl.org.in
                   </a>
-                  <a href="mailto:parendra@aipl.org.in" className="block hover:text-accent active:text-accent transition-colors duration-200 py-2 px-1 rounded-sm hover:bg-white/5 active:bg-white/10">
+                  <a href="mailto:parendra@aipl.org.in" className="block hover:text-accent transition-colors duration-200 py-1">
                     parendra@aipl.org.in
                   </a>
                 </div>
