@@ -42,27 +42,42 @@ const Footer = () => {
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-off-white hover:text-accent transition-colors duration-200">
+                <Link 
+                  href="/" 
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-off-white hover:text-accent transition-colors duration-200">
+                <Link 
+                  href="/about" 
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/products/herbal-extracts-manufacturer" className="text-off-white hover:text-accent transition-colors duration-200">
+                <Link 
+                  href="/products/herbal-extracts-manufacturer" 
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
+                >
                   Herbal Extracts
                 </Link>
               </li>
               <li>
-                <Link href="/products/nutraceutical-ingredients-supplier" className="text-off-white hover:text-accent transition-colors duration-200">
+                <Link 
+                  href="/products/nutraceutical-ingredients-supplier" 
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
+                >
                   Nutraceutical Ingredients
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-off-white hover:text-accent transition-colors duration-200">
+                <Link 
+                  href="/contact" 
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
+                >
                   Contact Us
                 </Link>
               </li>
@@ -77,12 +92,18 @@ const Footer = () => {
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/products/herbal-extracts-manufacturer" className="text-off-white hover:text-accent transition-colors duration-200">
+                <Link 
+                  href="/products/herbal-extracts-manufacturer" 
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
+                >
                   Herbal Extracts
                 </Link>
               </li>
               <li>
-                <Link href="/products/nutraceutical-ingredients-supplier" className="text-off-white hover:text-accent transition-colors duration-200">
+                <Link 
+                  href="/products/nutraceutical-ingredients-supplier" 
+                  className="text-off-white hover:text-accent transition-colors duration-200 block py-2 touch-manipulation"
+                >
                   Nutraceutical Ingredients
                 </Link>
               </li>
@@ -104,20 +125,30 @@ const Footer = () => {
                 </span>
               </li>
               <li className="flex items-start space-x-3">
-  <Phone className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
-  <a href="tel:+918791140933,+919818422865,+918979291134" className="text-off-white hover:text-accent transition-colors duration-200 space-y-1">
-    <div>+91 87911 40933</div>
-    <div>+91 98184 22865</div>
-    <div>+91 89792 91134</div>
-  </a>
-</li>
+                <Phone className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
+                <div className="text-off-white space-y-1">
+                  <a href="tel:+918791140933" className="block hover:text-accent transition-colors duration-200 py-1">
+                    +91 87911 40933
+                  </a>
+                  <a href="tel:+919818422865" className="block hover:text-accent transition-colors duration-200 py-1">
+                    +91 98184 22865
+                  </a>
+                  <a href="tel:+918979291134" className="block hover:text-accent transition-colors duration-200 py-1">
+                    +91 89792 91134
+                  </a>
+                </div>
+              </li>
 
-              <li className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-accent flex-shrink-0" />
-                <a href="mailto:info@aiplgroup.com" className="text-off-white hover:text-accent transition-colors duration-200">
-                 <div>pratik@aipl.org.in</div>
-                  <div>parendra@aipl.org.in</div>
-                </a>
+              <li className="flex items-start space-x-3">
+                <Mail className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
+                <div className="text-off-white">
+                  <a href="mailto:pratik@aipl.org.in" className="block hover:text-accent transition-colors duration-200 py-1">
+                    pratik@aipl.org.in
+                  </a>
+                  <a href="mailto:parendra@aipl.org.in" className="block hover:text-accent transition-colors duration-200 py-1">
+                    parendra@aipl.org.in
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
