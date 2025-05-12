@@ -10,8 +10,7 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-    // Enable image optimization for better performance
-    unoptimized: false,
+    unoptimized: true,
   },
   // Enable strict mode for better development experience
   reactStrictMode: true,
@@ -25,12 +24,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Add trailing slashes for consistent SEO 
-  trailingSlash: true,
-  // Disable x-powered-by header for security
-  poweredByHeader: false,
-  // Compress assets
-  compress: true,
 };
 
 module.exports = nextConfig;
