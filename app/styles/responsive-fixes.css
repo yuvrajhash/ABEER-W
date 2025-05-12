@@ -1,0 +1,187 @@
+/* Responsive and cross-browser compatibility fixes */
+
+/* Utilities for responsive text wrapping - these will be properly picked up by Tailwind */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Mobile Safari and iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for iOS Safari 100vh issue */
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+  
+  /* Fix for iOS Safari input zoom issue */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on focus in iOS */
+  }
+  
+  /* Fix for iOS Safari position:fixed issues */
+  .fixed {
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* Android Chrome specific fixes */
+@supports (-webkit-appearance:none) and (not (-webkit-touch-callout:none)) {
+  /* Fix for Android Chrome input styling */
+  input, select, textarea {
+    appearance: none;
+    border-radius: 0;
+  }
+}
+
+/* Firefox specific fixes */
+@-moz-document url-prefix() {
+  /* Fix Firefox smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Edge & IE specific fixes */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /* Flexbox fixes for IE/Edge */
+  .flex {
+    display: -ms-flexbox;
+  }
+  
+  .items-center {
+    -ms-flex-align: center;
+  }
+  
+  .justify-between {
+    -ms-flex-pack: justify;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  /* Larger tap targets for touch devices */
+  button, 
+  a, 
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improved feedback for touch interactions */
+  .tap-highlight {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Responsive font size adjustments */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* High-resolution displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper images for high DPI displays */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  img:not([src*='.svg']) {
+    filter: brightness(.8) contrast(1.2);
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* Safe area insets for modern devices with notches */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+.has-safe-area-top {
+  padding-top: var(--sat);
+}
+
+.has-safe-area-bottom {
+  padding-bottom: var(--sab);
+}
+
+/* Fix for mobile address bar affecting viewport height */
+@supports (height: 100dvh) {
+  .min-h-screen {
+    min-height: 100dvh;
+  }
+  
+  .h-screen {
+    height: 100dvh;
+  }
+}
+
+/* Prevent horizontal scrolling on mobile */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Fix iOS momentum scrolling */
+.momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+/* Better focus styles for accessibility */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #0A5F55;
+  outline-offset: 2px;
+}
+
+/* Skip using outline when mouse is used */
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+/* Better default appearance for interactive elements on all browsers */
+button, 
+input[type="button"], 
+input[type="reset"], 
+input[type="submit"] {
+  -webkit-appearance: none;
+  appearance: none;
+} 

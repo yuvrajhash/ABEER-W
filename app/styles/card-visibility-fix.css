@@ -1,0 +1,140 @@
+/* Card Visibility Improvements for Medical & Herbal Innovations Section */
+
+/* Improve base card visibility */
+.bg-gradient-to-br {
+  opacity: 1 !important; /* Ensure full opacity for all cards */
+}
+
+/* Improve text contrast on cards */
+.bg-gradient-to-br .text-white {
+  color: rgba(255, 255, 255, 1) !important; /* Full opacity for white text */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important; /* Add subtle text shadow for better readability */
+}
+
+.bg-gradient-to-br .text-white\/80 {
+  color: rgba(255, 255, 255, 0.95) !important; /* Increase opacity for better readability */
+}
+
+/* Improve background elements visibility */
+.bg-gradient-to-br .absolute.opacity-10 {
+  opacity: 0.15 !important; /* Slightly increase opacity for visual elements */
+}
+
+/* Improve particle animations visibility */
+.bg-gradient-to-br .animate-\[y\] {
+  opacity: 0.7 !important; /* Increase opacity for animated particles */
+}
+
+/* Enhance hover effects without reducing visibility */
+.bg-gradient-to-br:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important; /* Add shadow on hover instead of reducing opacity */
+  transform: translateY(-10px) scale(1.02) !important; /* Maintain the existing transform */
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Ensure consistent visibility for all card colors */
+.from-green-500.to-green-600,
+.from-blue-500.to-blue-600,
+.from-indigo-500.to-indigo-600,
+.from-teal-500.to-teal-600 {
+  opacity: 1 !important;
+}
+
+/* Improve icon container visibility */
+.bg-white\/20 {
+  background-color: rgba(255, 255, 255, 0.25) !important; /* Slightly increase opacity */
+}
+
+/* Ensure WCAG contrast compliance */
+.bg-gradient-to-br.from-green-500.to-green-600 {
+  background-image: linear-gradient(to bottom right, rgba(34, 197, 94, 1), rgba(22, 163, 74, 1)) !important;
+}
+
+.bg-gradient-to-br.from-blue-500.to-blue-600 {
+  background-image: linear-gradient(to bottom right, rgba(59, 130, 246, 1), rgba(37, 99, 235, 1)) !important;
+}
+
+.bg-gradient-to-br.from-indigo-500.to-indigo-600 {
+  background-image: linear-gradient(to bottom right, rgba(99, 102, 241, 1), rgba(79, 70, 229, 1)) !important;
+}
+
+.bg-gradient-to-br.from-teal-500.to-teal-600 {
+  background-image: linear-gradient(to bottom right, rgba(20, 184, 166, 1), rgba(13, 148, 136, 1)) !important;
+}
+
+/* Fix for card visibility issues */
+
+/* Ensure cards have proper z-index and don't disappear on hover */
+.card {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Fix for transform causing z-index issues */
+.card:hover {
+  z-index: 2;
+}
+
+/* Fix for cards in containers with overflow:hidden */
+.card-container {
+  overflow: visible !important;
+}
+
+/* Fix for table scrolling in mobile view */
+.overflow-x-auto {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix for floating elements overlapping cards */
+.fixed, .absolute {
+  pointer-events: none;
+  z-index: 0;
+}
+
+.fixed *, .absolute * {
+  pointer-events: auto;
+}
+
+/* Allow interaction with navbar and its children */
+header.fixed, 
+nav.fixed,
+.fixed.z-50,
+.z-50 {
+  pointer-events: auto;
+  z-index: 50;
+}
+
+/* Fix for card buttons being unclickable */
+.card button,
+.card a,
+.card .btn,
+.card input,
+.card select,
+.card textarea {
+  position: relative;
+  z-index: 3;
+}
+
+/* Fix for animation overlap issues */
+.motion-safe\:animate-pulse,
+[data-motion="animate-pulse"],
+.animate-pulse {
+  z-index: 1;
+}
+
+/* Fix for cards on product pages */
+.product-card {
+  position: relative;
+  z-index: 1;
+}
+
+.product-card:hover {
+  z-index: 2;
+}
+
+/* Ensure floating compounds don't block interactions */
+.pointer-events-none {
+  pointer-events: none !important;
+}
