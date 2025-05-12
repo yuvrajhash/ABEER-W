@@ -24,15 +24,15 @@ const FLOATING_WORDS = [
 
 const testimonials = [
   {
-    name: "Dr. Meera Singh",
-    title: "Chief Pharmacologist",
+    name: "Adesh R.",
+    title: "MD, Plenus Life Sciences Pvt Ltd. ",
     quote:
       "AIPL consistently delivers high-quality, innovative ingredients that meet the strictest regulatory standards.",
     imageUrl: "https://source.unsplash.com/100x100/?woman,doctor",
   },
   {
-    name: "John Matthews",
-    title: "CEO, Health Solutions Inc.",
+    name: "Karthik S Lyer",
+    title: "CEO, Truhealhy Group",
     quote:
       "Their commitment to sustainability and quality assurance makes them a trusted partner in pharmaceutical manufacturing.",
     imageUrl: "https://source.unsplash.com/100x100/?man,business",
