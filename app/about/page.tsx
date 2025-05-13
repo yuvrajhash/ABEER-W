@@ -34,7 +34,7 @@ const testimonials = [
     name: "Karthik S Lyer",
     title: "CEO, Truhealhy Group",
     quote:
-      "Their commitment to sustainability and quality assurance makes them a trusted partner in pharmaceutical manufacturing.",
+      "Their commitment to sustainability and quality assurance makes them a trusted partner in manufacturing.",
     imageUrl: "https://source.unsplash.com/100x100/?man,business",
   },
 ];
@@ -332,7 +332,7 @@ export default function AboutPage() {
             </h2>
             <div className="mx-auto h-1 w-24 bg-gradient-to-r from-green-600 to-teal-500 rounded-full mb-12"></div>
             <p className="text-gray-700 max-w-3xl mx-auto mb-14 text-lg">
-              We combine scientific innovation with traditional knowledge to create exceptional pharmaceutical products.
+              We combine scientific innovation with traditional knowledge to create exceptional products.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
               {expertiseItems.map(({ icon, title, description }) => (
