@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npx next dev",
-    "build": "npx next build",
+    "build": "npx rimraf .next && npx rimraf out && npx next build",
     "start": "npx next start",
     "lint": "npx next lint",
     "setup": "npm install rimraf postcss autoprefixer tailwindcss cross-env --save-dev",
