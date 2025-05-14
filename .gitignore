@@ -30,9 +30,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
-.env
+# Environment
+.env*
+!.env.example
+!.env.local.example
 
 # vercel
 .vercel
@@ -44,4 +45,7 @@ next-env.d.ts
 # Local Netlify folder
 .netlify
 
-.vercel
+# Sensitive files
+*config.json
+*.bak
+*credentials*
