@@ -47,7 +47,7 @@ async function testSmtpPorts() {
         secure: config.secure,
         auth: {
           user: 'pratik@aipl.org.in',
-          pass: 'February#1108',
+          pass: process.env.SMTP_PASSWORD || '',
         },
         tls: {
           rejectUnauthorized: false // Accept self-signed certificates

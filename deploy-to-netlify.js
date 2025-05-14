@@ -1,5 +1,7 @@
 const { execSync } = require('child_process');
 const readline = require('readline');
+const fs = require('fs');
+const path = require('path');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -23,6 +25,13 @@ try {
   // Build the project
   console.log('Building the project...');
   execSync('npm run build', { stdio: 'inherit' });
+
+  // Reminder about Formspree
+  console.log('\n⚠️ IMPORTANT: Make sure your Formspree form is set up correctly:');
+  console.log('  1. Create a Formspree form at https://formspree.io/');
+  console.log('  2. Update the form ID in app/contact/page.tsx');
+  console.log('  3. Test the form before deploying');
+  console.log('\nSee FORMSPREE_SETUP.md for detailed instructions.\n');
 
   // Deploy to Netlify
   console.log(`Deploying to Netlify with site name: ${siteName}...`);

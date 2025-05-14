@@ -1,21 +1,28 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config({ path: '.env.local' });
 
 // ⚠️ IMPORTANT: This script is disabled by default to prevent account suspensions
 // To run it, change DISABLE_TESTING to false, but only when absolutely necessary
 const DISABLE_TESTING = true;
 
 async function testSmtp() {
+  if (DISABLE_TESTING) {
+    console.log('⚠️ Testing is disabled. To enable testing, set DISABLE_TESTING to false in this script.');
+    console.log('⚠️ Only do this when absolutely necessary to avoid account suspensions.');
+    return;
+  }
+
   console.log('Testing SMTP connection...');
   
   try {
     // GoDaddy Premium Email SMTP configuration
     const transporter = nodemailer.createTransport({
-      host: 'smtpout.secureserver.net', // GoDaddy SMTP server
-      port: 587,
-      secure: false, // True for port 465, false for other ports
+      host: process.env.SMTP_HOST || 'smtpout.secureserver.net', // GoDaddy SMTP server
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: process.env.SMTP_SECURE === 'true' ? true : false, // True for port 465, false for other ports
       auth: {
-        user: 'pratik@aipl.org.in',
-        pass: 'February#1108',
+        user: process.env.SMTP_USER || 'pratik@aipl.org.in',
+        pass: process.env.SMTP_PASSWORD || '',
       },
       tls: {
         rejectUnauthorized: false // Accept self-signed certificates

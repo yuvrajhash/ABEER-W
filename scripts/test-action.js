@@ -2,6 +2,7 @@
 // But we can use the same SMTP logic to test
 
 const nodemailer = require('nodemailer');
+require('dotenv').config({ path: '.env.local' });
 
 // ⚠️ IMPORTANT: This script is disabled by default to prevent account suspensions
 // To run it, change DISABLE_TESTING to false, but only when absolutely necessary
@@ -16,6 +17,12 @@ const formData = {
 
 // Similar to the server action's sendViaSmtp function
 async function sendViaSmtp(formData) {
+  if (DISABLE_TESTING) {
+    console.log('⚠️ Testing is disabled. To enable testing, set DISABLE_TESTING to false in this script.');
+    console.log('⚠️ Only do this when absolutely necessary to avoid account suspensions.');
+    return;
+  }
+
   try {
     // Create a more detailed console message for debugging
     console.log('\n======================================');
@@ -29,18 +36,18 @@ async function sendViaSmtp(formData) {
     console.log('----------------------------------------');
     console.log(formData.message);
     console.log('----------------------------------------');
-    console.log(`📬 Will be sent to: pratik@aipl.org.in`);
+    console.log(`📬 Will be sent to: ${process.env.RECIPIENT_EMAIL || 'pratik@aipl.org.in'}`);
     console.log('======================================\n');
 
     // GoDaddy Premium Email SMTP configuration
     console.log('Creating SMTP transporter...');
     const transporter = nodemailer.createTransport({
-      host: 'smtpout.secureserver.net', // GoDaddy SMTP server
-      port: 587,
-      secure: false, // True for port 465, false for other ports
+      host: process.env.SMTP_HOST || 'smtpout.secureserver.net', // GoDaddy SMTP server
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: process.env.SMTP_SECURE === 'true' ? true : false, // True for port 465, false for other ports
       auth: {
-        user: 'pratik@aipl.org.in',
-        pass: 'February#1108',
+        user: process.env.SMTP_USER || 'pratik@aipl.org.in',
+        pass: process.env.SMTP_PASSWORD || '',
       },
       tls: {
         rejectUnauthorized: false // Accept self-signed certificates
@@ -146,7 +153,7 @@ async function tryAlternateConfigurations() {
         secure: config.secure,
         auth: {
           user: 'pratik@aipl.org.in',
-          pass: 'February#1108',
+          pass: process.env.SMTP_PASSWORD || '',
         },
         tls: {
           rejectUnauthorized: false

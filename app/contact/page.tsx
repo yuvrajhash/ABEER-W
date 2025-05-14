@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send, Facebook, Twitter, Linkedin, Instagram } from "lucide-react"; // Added social icons
 import dynamic from "next/dynamic";
-import { submitContactForm } from "../actions/contact"; // Import the server action
 
 const MapSection = dynamic(() => import("../components/MapSection"), { 
   ssr: false,
@@ -21,29 +20,11 @@ export default function ContactPage() {
     name: "",
     email: "",
     subject: "",
-    message: "",
-    ip: ""
+    message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
-
-  // Get client IP on component load
-  useEffect(() => {
-    // Try to get IP from an IP lookup service
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        if (data.ip) {
-          setFormData(prev => ({ ...prev, ip: data.ip }));
-        }
-      })
-      .catch(error => {
-        console.log('Could not get client IP:', error);
-        // Set a placeholder IP if fetching fails
-        setFormData(prev => ({ ...prev, ip: 'Client IP unavailable' }));
-      });
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -57,23 +38,28 @@ export default function ContactPage() {
     setSubmitSuccess(false); // Reset success state on new submission
     
     try {
-      // Call the server action instead of simulating an API call
-      console.log("Submitting form data:", formData);
-      const result = await submitContactForm(formData);
-      console.log("Server response:", result);
+      // Send data to Formspree
+      const response = await fetch("https://formspree.io/f/mjkwjgzr", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
       
-      if (result.success) {
+      if (response.ok) {
         setSubmitSuccess(true);
-        setFormData({ // Reset form on success
+        // Reset form on success
+        setFormData({
           name: "",
           email: "",
           subject: "",
-          message: "",
-          ip: ""
+          message: ""
         });
         setTimeout(() => setSubmitSuccess(false), 5000); // Hide success message after 5 seconds
       } else {
-        setSubmitError(result.message || "There was an error submitting your message. Please try again later.");
+        const errorData = await response.json();
+        setSubmitError(errorData.message || "There was an error submitting your message. Please try again later.");
       }
     } catch (error: unknown) {
       console.error("Form submission error:", error instanceof Error ? error.message : String(error));
@@ -129,7 +115,6 @@ export default function ContactPage() {
     </motion.div>
   </div>
 </section>
-
 
       {/* Contact Information & Form Section */} 
       <section className="py-16 md:py-24 bg-gray-50"> {/* Adjusted padding and background */} 
@@ -311,7 +296,7 @@ export default function ContactPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded-md text-sm"
                   >
-                    Message sent successfully! We&apos;ll get back to you soon. If you don&apos;t see a confirmation email, please check your spam/junk folder.
+                    Message sent successfully! We&apos;ll get back to you soon.
                   </motion.div>
                 )}
                 {submitError && (
