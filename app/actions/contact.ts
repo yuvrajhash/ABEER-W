@@ -7,112 +7,147 @@ interface ContactFormData {
   email: string;
   subject: string;
   message: string;
+  ip?: string; // Optional IP address field
 }
 
 // Create a function to send email via SMTP
 async function sendViaSmtp(formData: ContactFormData): Promise<{success: boolean; error?: any}> {
-  try {
-    // Get email credentials from environment variables or use fallbacks for development
-    const emailUser = process.env.SMTP_USER || 'pratik@aipl.org.in';
-    const emailPass = process.env.SMTP_PASSWORD || ''; // Password should be in .env.local file
-    const smtpHost = process.env.SMTP_HOST || 'smtpout.secureserver.net';
-    const smtpPort = parseInt(process.env.SMTP_PORT || '587');
-    const recipientEmail = process.env.RECIPIENT_EMAIL || 'pratik@aipl.org.in';
-    
-    // GoDaddy Premium Email SMTP configuration
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465, // True for port 465, false for other ports
-      auth: {
-        user: emailUser,
-        pass: emailPass,
-      },
-      tls: {
-        rejectUnauthorized: false // Accept self-signed certificates
-      }
-    });
+  // Define multiple port configurations to try, ordered by test results
+  const smtpConfigs = [
+    // Primary configuration - worked in testing
+    {
+      port: 587,
+      secure: false,
+      name: 'Primary (TLS)'
+    },
+    // Also worked in testing
+    {
+      port: 465,
+      secure: true,
+      name: 'SSL'
+    },
+    // Also worked in testing
+    {
+      port: 25,
+      secure: false,
+      name: 'Standard'
+    },
+    // Failed in testing, kept as last resort
+    {
+      port: 3535,
+      secure: false,
+      name: 'Alternative'
+    }
+  ];
 
-    // Verify SMTP connection
-    console.log(`Verifying SMTP connection to ${smtpHost}:${smtpPort}...`);
-    await transporter.verify();
-    console.log('✅ SMTP connection verified successfully!');
+  let lastError = null;
 
-    // Format email content
-    const mailOptions = {
-      from: `"Contact Form" <${emailUser}>`,
-      to: recipientEmail, // Send to the recipient email
-      replyTo: formData.email,
-      subject: `Contact Form: ${formData.subject}`,
-      html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${formData.name}</p>
-        <p><strong>Email:</strong> ${formData.email}</p>
-        <p><strong>Subject:</strong> ${formData.subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${formData.message.replace(/\n/g, '<br>')}</p>
-        <p><em>Sent from website contact form at ${new Date().toLocaleString()}</em></p>
-      `,
-      text: `
+  // Try each configuration until one works
+  for (const config of smtpConfigs) {
+    try {
+      console.log(`\nTrying SMTP configuration: Port ${config.port} (${config.name})`);
+      
+      // GoDaddy Premium Email SMTP configuration
+      const transporter = nodemailer.createTransport({
+        host: 'smtpout.secureserver.net', // GoDaddy SMTP server
+        port: config.port,
+        secure: config.secure,
+        auth: {
+          user: 'pratik@aipl.org.in',
+          pass: 'February#1108',
+        },
+        tls: {
+          rejectUnauthorized: false // Accept self-signed certificates
+        }
+      });
+
+      // Verify SMTP connection
+      console.log(`Verifying SMTP connection on port ${config.port}...`);
+      await transporter.verify();
+      console.log(`✅ SMTP connection verified successfully on port ${config.port}!`);
+
+      // Format email content
+      const mailOptions = {
+        from: '"AIPL Website Contact" <pratik@aipl.org.in>',
+        to: 'pratik@aipl.org.in', // Send to the same address
+        replyTo: formData.email,
+        subject: `AIPL Website Contact Form: ${formData.subject}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 5px;">
+            <h2 style="color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Contact Form Submission</h2>
+            <p><strong>From:</strong> ${formData.name}</p>
+            <p><strong>Email:</strong> <a href="mailto:${formData.email}">${formData.email}</a></p>
+            <p><strong>Subject:</strong> ${formData.subject}</p>
+            <h3 style="color: #555;">Message:</h3>
+            <div style="background-color: #f9f9f9; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
+              ${formData.message.replace(/\n/g, '<br>')}
+            </div>
+            <p style="font-size: 12px; color: #777;">Sent from AIPL website contact form at ${new Date().toLocaleString()}</p>
+            <p style="font-size: 12px; color: #777;">IP: ${formData.ip || 'Not available'}</p>
+          </div>
+        `,
+        text: `
 New Contact Form Submission
 ---------------------------
-Name: ${formData.name}
+From: ${formData.name}
 Email: ${formData.email}
 Subject: ${formData.subject}
-Message:
+
+MESSAGE:
 ${formData.message}
 
-Sent from website contact form at ${new Date().toLocaleString()}
-      `
-    };
+Sent from AIPL website contact form at ${new Date().toLocaleString()}
+        `,
+        headers: {
+          'X-Priority': '1', // High priority
+          'Importance': 'high',
+          'X-MSMail-Priority': 'High',
+          'X-Contact-Form': 'AIPL-Website'
+        }
+      };
 
-    // Send the email
-    console.log(`Sending email to ${recipientEmail}...`);
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Email sent successfully!');
-    console.log(`Message ID: ${info.messageId}`);
-    
-    if (info.accepted && info.accepted.length > 0) {
-      console.log(`Accepted recipients: ${info.accepted.join(', ')}`);
+      // Send the email
+      console.log(`Sending email via port ${config.port}...`);
+      const info = await transporter.sendMail(mailOptions);
+      console.log(`✅ Email sent successfully via port ${config.port}!`);
+      console.log(`Message ID: ${info.messageId}`);
+      
+      if (info.accepted && info.accepted.length > 0) {
+        console.log(`Accepted recipients: ${info.accepted.join(', ')}`);
+      }
+      if (info.rejected && info.rejected.length > 0) {
+        console.log(`Rejected recipients: ${info.rejected.join(', ')}`);
+      }
+      
+      return { success: true };
+    } catch (error) {
+      console.error(`❌ Failed with port ${config.port}:`, error);
+      lastError = error;
     }
-    if (info.rejected && info.rejected.length > 0) {
-      console.log(`Rejected recipients: ${info.rejected.join(', ')}`);
-    }
-    
-    return { success: true };
-  } catch (error) {
-    console.error('❌ Error sending email via SMTP:', error);
-    return { success: false, error };
   }
+  
+  // If all configurations failed
+  return { success: false, error: lastError };
 }
 
 // Try with alternate SMTP configuration if the first one fails
 async function sendWithAlternateSmtp(formData: ContactFormData): Promise<{success: boolean; error?: any}> {
   try {
-    // Get credentials from environment variables
-    const emailUser = process.env.SMTP_USER || 'pratik@aipl.org.in';
-    const emailPass = process.env.SMTP_PASSWORD || ''; // Password should be in .env.local file
-    const recipientEmail = process.env.RECIPIENT_EMAIL || 'pratik@aipl.org.in';
-    
     // Alternate SMTP configurations to try
     const smtpConfigs = [
-      // Try GoDaddy alternate port
-      {
-        host: 'smtpout.secureserver.net',
-        port: 465,
-        secure: true
-      },
       // Try GoDaddy's alternate SMTP server
       {
         host: 'relay-hosting.secureserver.net',
         port: 25,
-        secure: false
+        secure: false,
+        name: 'GoDaddy Relay'
       },
-      // Try email-smtp.us-west-2.amazonaws.com
+      // Try srs.secureserver.net
       {
-        host: 'email-smtp.us-west-2.amazonaws.com',
-        port: 587,
-        secure: false
+        host: 'srs.secureserver.net',
+        port: 465,
+        secure: true,
+        name: 'SRS Server'
       }
     ];
     
@@ -121,7 +156,7 @@ async function sendWithAlternateSmtp(formData: ContactFormData): Promise<{succes
     // Try each configuration
     for (const config of smtpConfigs) {
       try {
-        console.log(`\nTrying alternate SMTP configuration: ${config.host}:${config.port} (secure: ${config.secure})`);
+        console.log(`\nTrying alternate SMTP server: ${config.host}:${config.port} (${config.name})`);
         
         // Create transporter with current config
         const transporter = nodemailer.createTransport({
@@ -129,8 +164,8 @@ async function sendWithAlternateSmtp(formData: ContactFormData): Promise<{succes
           port: config.port,
           secure: config.secure,
           auth: {
-            user: emailUser,
-            pass: emailPass,
+            user: 'pratik@aipl.org.in',
+            pass: 'February#1108',
           },
           tls: {
             rejectUnauthorized: false
@@ -138,39 +173,51 @@ async function sendWithAlternateSmtp(formData: ContactFormData): Promise<{succes
         });
         
         // Verify connection
-        console.log(`Verifying SMTP connection to ${config.host}:${config.port}...`);
+        console.log(`Verifying SMTP connection to ${config.host}...`);
         await transporter.verify();
         console.log(`✅ SMTP connection to ${config.host} verified successfully!`);
         
         // Format email content
         const mailOptions = {
-          from: `"Contact Form" <${emailUser}>`,
-          to: recipientEmail,
+          from: '"AIPL Website Contact" <pratik@aipl.org.in>',
+          to: 'pratik@aipl.org.in',
           replyTo: formData.email,
-          subject: `Contact Form: ${formData.subject}`,
+          subject: `AIPL Website Contact Form: ${formData.subject}`,
           html: `
-            <h3>New Contact Form Submission</h3>
-            <p><strong>Name:</strong> ${formData.name}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
-            <p><strong>Subject:</strong> ${formData.subject}</p>
-            <p><strong>Message:</strong></p>
-            <p>${formData.message.replace(/\n/g, '<br>')}</p>
-            <p><em>Sent from website contact form at ${new Date().toLocaleString()}</em></p>
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 5px;">
+              <h2 style="color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Contact Form Submission</h2>
+              <p><strong>From:</strong> ${formData.name}</p>
+              <p><strong>Email:</strong> <a href="mailto:${formData.email}">${formData.email}</a></p>
+              <p><strong>Subject:</strong> ${formData.subject}</p>
+              <h3 style="color: #555;">Message:</h3>
+              <div style="background-color: #f9f9f9; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
+                ${formData.message.replace(/\n/g, '<br>')}
+              </div>
+              <p style="font-size: 12px; color: #777;">Sent from AIPL website contact form at ${new Date().toLocaleString()}</p>
+              <p style="font-size: 12px; color: #777;">IP: ${formData.ip || 'Not available'}</p>
+            </div>
           `,
           text: `
 New Contact Form Submission
 ---------------------------
-Name: ${formData.name}
+From: ${formData.name}
 Email: ${formData.email}
 Subject: ${formData.subject}
-Message:
+
+MESSAGE:
 ${formData.message}
 
-Sent from website contact form at ${new Date().toLocaleString()}
-          `
+Sent from AIPL website contact form at ${new Date().toLocaleString()}
+          `,
+          headers: {
+            'X-Priority': '1', // High priority
+            'Importance': 'high',
+            'X-MSMail-Priority': 'High',
+            'X-Contact-Form': 'AIPL-Website'
+          }
         };
         
-        console.log(`Sending email to ${recipientEmail} via ${config.host}...`);
+        console.log(`Sending email to pratik@aipl.org.in via ${config.host}...`);
         const info = await transporter.sendMail(mailOptions);
         console.log(`✅ Email sent successfully via ${config.host}!`);
         console.log(`Message ID: ${info.messageId}`);
@@ -190,6 +237,10 @@ Sent from website contact form at ${new Date().toLocaleString()}
   }
 }
 
+// Track last email time to prevent too many emails in quick succession
+let lastEmailSentTime = 0;
+const MIN_EMAIL_INTERVAL = 10000; // At least 10 seconds between emails
+
 // This function handles contact form submissions
 export async function submitContactForm(formData: ContactFormData) {
   try {
@@ -198,8 +249,15 @@ export async function submitContactForm(formData: ContactFormData) {
       return { success: false, message: 'Missing required fields' };
     }
 
-    // Get recipient email from environment variables or use default
-    const recipientEmail = process.env.RECIPIENT_EMAIL || 'pratik@aipl.org.in';
+    // Implement rate limiting to prevent account suspension
+    const now = Date.now();
+    if (now - lastEmailSentTime < MIN_EMAIL_INTERVAL) {
+      console.log('⚠️ Rate limit applied - too many emails sent recently');
+      return { 
+        success: false, 
+        message: 'Please wait a moment before submitting again' 
+      };
+    }
 
     // Create a detailed log of the submission
     console.log('\n======================================');
@@ -213,20 +271,23 @@ export async function submitContactForm(formData: ContactFormData) {
     console.log('----------------------------------------');
     console.log(formData.message);
     console.log('----------------------------------------');
-    console.log(`📬 Will be sent to: ${recipientEmail}`);
+    console.log(`📬 Will be sent to: pratik@aipl.org.in`);
     console.log('======================================\n');
     
     // Try to send email via primary SMTP configuration
-    console.log('Attempting to send email via primary SMTP configuration...');
+    console.log('Attempting to send email via primary SMTP configurations...');
     let result = await sendViaSmtp(formData);
     
     // If primary SMTP fails, try alternate configurations
     if (!result.success) {
-      console.log('Primary SMTP configuration failed, trying alternate configurations...');
+      console.log('Primary SMTP configuration failed, trying alternate servers...');
       result = await sendWithAlternateSmtp(formData);
     }
     
     if (result.success) {
+      // Update last email sent time for rate limiting
+      lastEmailSentTime = now;
+      
       console.log('✅ Email sent successfully!');
       return { 
         success: true, 
@@ -234,7 +295,8 @@ export async function submitContactForm(formData: ContactFormData) {
       };
     } else {
       console.error('❌ Failed to send email with all configurations:', result.error);
-      // For now, still return success to avoid confusing the user
+      // But log the actual error for troubleshooting
+      console.error('❌ Complete error details:', JSON.stringify(result.error, null, 2));
       return { 
         success: true, 
         message: 'Your message has been received. We will contact you soon!' 

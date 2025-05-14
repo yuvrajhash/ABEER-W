@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send, Facebook, Twitter, Linkedin, Instagram } from "lucide-react"; // Added social icons
 import dynamic from "next/dynamic";
+import { submitContactForm } from "../actions/contact"; // Import the server action
 
 const MapSection = dynamic(() => import("../components/MapSection"), { 
   ssr: false,
@@ -20,11 +21,29 @@ export default function ContactPage() {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
+    ip: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+
+  // Get client IP on component load
+  useEffect(() => {
+    // Try to get IP from an IP lookup service
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        if (data.ip) {
+          setFormData(prev => ({ ...prev, ip: data.ip }));
+        }
+      })
+      .catch(error => {
+        console.log('Could not get client IP:', error);
+        // Set a placeholder IP if fetching fails
+        setFormData(prev => ({ ...prev, ip: 'Client IP unavailable' }));
+      });
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -37,19 +56,25 @@ export default function ContactPage() {
     setSubmitError("");
     setSubmitSuccess(false); // Reset success state on new submission
     
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      // Simulate potential error for demonstration
-      // if (Math.random() > 0.5) throw new Error("Simulated network error");
-      setSubmitSuccess(true);
-      setFormData({ // Reset form on success
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
-      setTimeout(() => setSubmitSuccess(false), 5000); // Hide success message after 5 seconds
+      // Call the server action instead of simulating an API call
+      console.log("Submitting form data:", formData);
+      const result = await submitContactForm(formData);
+      console.log("Server response:", result);
+      
+      if (result.success) {
+        setSubmitSuccess(true);
+        setFormData({ // Reset form on success
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+          ip: ""
+        });
+        setTimeout(() => setSubmitSuccess(false), 5000); // Hide success message after 5 seconds
+      } else {
+        setSubmitError(result.message || "There was an error submitting your message. Please try again later.");
+      }
     } catch (error: unknown) {
       console.error("Form submission error:", error instanceof Error ? error.message : String(error));
       setSubmitError("There was an error submitting your message. Please try again later.");
@@ -286,7 +311,7 @@ export default function ContactPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded-md text-sm"
                   >
-                    Message sent successfully! We&apos;ll get back to you soon.
+                    Message sent successfully! We&apos;ll get back to you soon. If you don&apos;t see a confirmation email, please check your spam/junk folder.
                   </motion.div>
                 )}
                 {submitError && (

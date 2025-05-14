@@ -28,14 +28,14 @@ const testimonials = [
     title: "MD, Plenus Life Sciences Pvt Ltd. ",
     quote:
       "AIPL consistently delivers high-quality, innovative ingredients that meet the strictest regulatory standards.",
-    imageUrl: "https://source.unsplash.com/100x100/?woman,doctor",
+    imageUrl: "/images/kar.jpg",
   },
   {
     name: "Karthik S Lyer",
     title: "CEO, Truhealhy Group",
     quote:
-      "Their commitment to sustainability and quality assurance makes them a trusted partner in pharmaceutical manufacturing.",
-    imageUrl: "https://source.unsplash.com/100x100/?man,business",
+      "Their commitment to sustainability and quality assurance makes them a trusted partner in nutraceutical manufacturing.",
+    imageUrl: "/images/ades.jpg",
   },
 ];
 
@@ -260,7 +260,7 @@ export default function AboutPage() {
                 <h3 className="text-3xl font-bold text-orange-600">Our Vision</h3>
               </div>
               <p className="text-gray-700 text-lg leading-relaxed">
-                We are committed to become the world’s leading manufacturer of high-quality, sustainable herbal extracts and set the industry standard for excellence in quality-driven, environmentally conscious herbal extract manufacturing.
+                We are committed to become the world's leading manufacturer of high-quality, sustainable herbal extracts and set the industry standard for excellence in quality-driven, environmentally conscious herbal extract manufacturing.
               </p>
               <motion.div
                 initial={{ width: 0 }}
